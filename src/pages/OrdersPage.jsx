@@ -31,7 +31,7 @@ const OrdersPage = () => {
 
   const fetchOrders = async () => {
     try {
-      const response = await axios.get('https://ecommerce-backend-2-79ub.onrender.com/api/orders/getallorders', {
+      const response = await axios.get('https://ecommerce-backend-2-79ub.onrender.com/api/order/getallorders', {
         withCredentials: true, // Ensure cookies are sent with the request)
       });
       console.log("Fetched Orders:", response.data);
