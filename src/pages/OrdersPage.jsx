@@ -50,29 +50,31 @@ const OrdersPage = () => {
       <h2 className="text-2xl font-bold mb-4">Orders</h2>
 
       <div className="overflow-x-auto">
-        <table className="min-w-full bg-white border border-gray-300">
-          <thead>
-            <tr className="bg-gray-100 text-left">
-              <th className="p-2 border">Order ID</th>
-              <th className="p-2 border">Customer</th>
-              <th className="p-2 border">Total (₹)</th>
-              <th className="p-2 border">Status</th>
-              <th className="p-2 border">Date</th>
-            </tr>
-          </thead>
-          <tbody>
-            {orders?.map((order) => (
-              <tr key={order.id} className="hover:bg-gray-50">
-                <td className="p-2 border">{order.id}</td>
-                <td className="p-2 border">{order.customer}</td>
-                <td className="p-2 border">₹{order.total}</td>
-                <td className="p-2 border">{order.status}</td>
-                <td className="p-2 border">{order.date}</td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
+  <div className="max-h-96 overflow-y-auto">
+    <table className="min-w-full bg-white border border-gray-300">
+      <thead className="sticky top-0 bg-gray-100">
+        <tr className="text-left">
+          <th className="p-2 border">Order ID</th>
+          <th className="p-2 border">Customer</th>
+          <th className="p-2 border">Total (₹)</th>
+          <th className="p-2 border">Status</th>
+          <th className="p-2 border">Date</th>
+        </tr>
+      </thead>
+      <tbody>
+        {orders?.map((order) => (
+          <tr key={order.id} className="hover:bg-gray-50">
+            <td className="p-2 border">{order.id}</td>
+            <td className="p-2 border">{order.customer}</td>
+            <td className="p-2 border">₹{order.total}</td>
+            <td className="p-2 border">{order.status}</td>
+            <td className="p-2 border">{order.date}</td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
+  </div>
+</div>
     </div>
   );
 };

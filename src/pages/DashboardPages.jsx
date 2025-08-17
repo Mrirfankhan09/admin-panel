@@ -14,28 +14,28 @@ const DashboardPages = () => {
     const response = await axios.get('https://ecommerce-backend-2-79ub.onrender.com/api/users/usercount', {
       withCredentials: true, // Ensure cookies are sent with the request  );
     })
-    console.log("User Count:", response.data)
+    // console.log("User Count:", response.data)
     setUserCount(response.data.count);
   }
   const fetchOrderCount = async () => {
     const response = await axios.get('https://ecommerce-backend-2-79ub.onrender.com/api/order/ordercount', {
       withCredentials: true, // Ensure cookies are sent with the request
     });
-    console.log("Order Count:", response.data);
+    // console.log("Order Count:", response.data);
     setOrderCount(response.data.count);
   };
   const fetchProductCount = async () => {
     const response = await axios.get('https://ecommerce-backend-2-79ub.onrender.com/api/products/getproductsCount', {
       withCredentials: true, // Ensure cookies are sent with the request
     });
-    console.log("Product Count:", response.data);
+    // console.log("Product Count:", response.data);
     setProductCount(response.data.count);
   }
   const fetchRevenue = async () => {
     const response = await axios.get('https://ecommerce-backend-2-79ub.onrender.com/api/order/totalrevenue', {
       withCredentials: true, // Ensure cookies are sent with the request
     });
-    console.log("Total Revenue:", response.data);
+    // console.log("Total Revenue:", response.data);
     setRevenue(response.data.totalRevenue);
   };
 
