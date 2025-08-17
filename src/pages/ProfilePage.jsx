@@ -1,25 +1,67 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
+import { set } from 'mongoose';
+import { useNavigate } from 'react-router-dom';
 
 const ProfilePage = () => {
   const [formData, setFormData] = useState({
     name: 'Admin User',
-    email: 'admin@example.com',
     role: 'Admin',
     password: '',
   });
 
   const handleChange = (e) => {
+
     setFormData((prev) => ({
       ...prev,
       [e.target.name]: e.target.value,
     }));
   };
+  const getUserProfile = async () => {
+    try {
+
+      const response = await axios.get('https://ecommerce-backend-2-79ub.onrender.com/api/users/profile', {
+        withCredentials: true, // Ensure cookies are sent with the request
+      });
+      setFormData(response.data);
+      console.log('User Profile:', response.data);
+    } catch (error) {
+      console.error('Error fetching user profile:', error);
+    }
+  }
+  const updateuserProfile = async () => {
+    try {
+      const response = await axios.put('https://ecommerce-backend-2-79ub.onrender.com/api/users/profile', formData, {
+        withCredentials: true, // Ensure cookies are sent with the request
+      });
+      console.log('Profile updated:', response.data);
+    } catch (error) {
+      console.error('Error updating profile:', error);
+    }
+  };
+
+
+
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // TODO: Call API to update profile
-    alert('Profile updated successfully!');
+    // TODO: Call API to update 
+    if (confirm('if you update your login password will be changed and you will be logged out')) {
+      updateuserProfile();
+      alert('Profile updated successfully!');
+      logoutUser();
+      window.location.href = '/login'; // Redirect to login page after logout
+
+
+    }
+    else {
+      alert('Profile update cancelled.');
+    }
+
   };
+  useEffect(() => {
+    getUserProfile();
+  }, []);
 
   return (
     <div className="p-6 max-w-xl mx-auto bg-white shadow rounded">
@@ -37,7 +79,7 @@ const ProfilePage = () => {
           />
         </div>
 
-        <div>
+        {/* <div>
           <label className="block font-medium mb-1">Email</label>
           <input
             type="email"
@@ -47,7 +89,7 @@ const ProfilePage = () => {
             onChange={handleChange}
             required
           />
-        </div>
+        </div> */}
 
         <div>
           <label className="block font-medium mb-1">Role</label>

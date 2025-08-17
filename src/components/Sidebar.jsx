@@ -10,9 +10,31 @@ import {
   FaUserCircle,
   FaCog
 } from 'react-icons/fa';
-import { NavLink } from 'react-router-dom';
+import { NavLink, useNavigate } from 'react-router-dom';
 
 const Sidebar = () => {
+  const navigate = useNavigate();
+
+  const logoutUser = async () => {
+    try {
+      const response = await axios.get('https://ecommerce-backend-2-79ub.onrender.com/api/users/logout', {
+        withCredentials: true, // Ensure cookies are sent with the request
+      });
+      console.log('User logged out:', response.data);
+
+    } catch (error) {
+      console.error('Error logging out:', error);
+    }
+
+  };
+  const handleLogout = () => {
+    if (window.confirm('Are you sure you want to log out?')) {
+      logoutUser();
+      navigate('/login'); // Redirect to login page after logout
+    }
+  }
+
+
   return (
     <div className="w-64 h-screen bg-gray-800 text-white flex flex-col p-4">
       <h2 className="text-2xl font-bold mb-8 text-center">Admin Panel</h2>
@@ -94,7 +116,7 @@ const Sidebar = () => {
       </nav>
 
       <div className="mt-auto">
-        <button className="w-full flex items-center gap-3 p-2 hover:bg-gray-700 rounded">
+        <button className="w-full flex items-center gap-3 p-2 hover:bg-gray-700 rounded" onClick={handleLogout}>
           <FaSignOutAlt /> Logout
         </button>
       </div>

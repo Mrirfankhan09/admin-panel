@@ -1,30 +1,53 @@
 import React from 'react';
+import { useState, useEffect } from 'react';
+import axios from 'axios';
 
 const UsersPage = () => {
   // Dummy users data
-  const users = [
-    {
-      id: 1,
-      name: 'Ankit Mehta',
-      email: 'ankit@example.com',
-      role: 'Admin',
-      joined: '2023-11-01'
-    },
-    {
-      id: 2,
-      name: 'Priya Jain',
-      email: 'priya@example.com',
-      role: 'Customer',
-      joined: '2024-05-21'
-    },
-    {
-      id: 3,
-      name: 'Ravi Kumar',
-      email: 'ravi@example.com',
-      role: 'Customer',
-      joined: '2025-02-10'
+  const [users, setUsers] = useState([]);
+
+  const fetchUsers = async () => {
+    try {
+      const response = await axios.get('https://ecommerce-backend-2-79ub.onrender.com/api/users/getusers', {
+        withCredentials: true, // Ensure cookies are sent with the request
+      });
+      console.log("Fetched Users:", response.data);
+      setUsers(response.data);
     }
-  ];
+    catch (error) {
+      console.error("Error fetching users:", error);
+    }
+
+  };
+
+  // const users = [
+  //   {
+  //     id: 1,
+  //     name: 'Ankit Mehta',
+  //     email: 'ankit@example.com',
+  //     role: 'Admin',
+  //     joined: '2023-11-01'
+  //   },
+  //   {
+  //     id: 2,
+  //     name: 'Priya Jain',
+  //     email: 'priya@example.com',
+  //     role: 'Customer',
+  //     joined: '2024-05-21'
+  //   },
+  //   {
+  //     id: 3,
+  //     name: 'Ravi Kumar',
+  //     email: 'ravi@example.com',
+  //     role: 'Customer',
+  //     joined: '2025-02-10'
+  //   }
+  // ];
+
+  useEffect(() => {
+    fetchUsers();
+  }, []); // Fetch users on component mount
+
 
   return (
     <div className="p-6">

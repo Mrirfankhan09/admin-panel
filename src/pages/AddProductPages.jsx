@@ -1,3 +1,4 @@
+import axios from 'axios';
 import React, { useState } from 'react';
 
 const AddProductPage = () => {
@@ -20,9 +21,26 @@ const AddProductPage = () => {
     }
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     console.log(productData); // Later we'll send this to backend
+    try {
+      const response = await axios.post(
+        'https://ecommerce-backend-2-79ub.onrender.com/api/products/create',
+        productData,
+        {
+          headers: {
+            'Content-Type': 'multipart/form-data',
+          },
+          withCredentials: true, // Ensure cookies are sent with the request
+        }
+      );
+
+      console.log("Product added successfully:", response.data);
+    } catch (error) {
+      console.error("Error adding product:", error);
+    }
+
   };
 
   return (

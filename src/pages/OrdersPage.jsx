@@ -1,30 +1,49 @@
+import axios from 'axios';
 import React from 'react';
-
+import { useState, useEffect } from 'react';
 const OrdersPage = () => {
   // Dummy order data
-  const orders = [
-    {
-      id: 'ORD001',
-      customer: 'Rahul Sharma',
-      total: 2499,
-      status: 'Delivered',
-      date: '2025-08-06'
-    },
-    {
-      id: 'ORD002',
-      customer: 'Sneha Patel',
-      total: 1299,
-      status: 'Processing',
-      date: '2025-08-05'
-    },
-    {
-      id: 'ORD003',
-      customer: 'Amit Verma',
-      total: 499,
-      status: 'Cancelled',
-      date: '2025-08-04'
+
+  // const orders = [
+  //   {
+  //     id: 'ORD001',
+  //     customer: 'Rahul Sharma',
+  //     total: 2499,
+  //     status: 'Delivered',
+  //     date: '2025-08-06'
+  //   },
+  //   {
+  //     id: 'ORD002',
+  //     customer: 'Sneha Patel',
+  //     total: 1299,
+  //     status: 'Processing',
+  //     date: '2025-08-05'
+  //   },
+  //   {
+  //     id: 'ORD003',
+  //     customer: 'Amit Verma',
+  //     total: 499,
+  //     status: 'Cancelled',
+  //     date: '2025-08-04'
+  //   }
+  // ];
+  const [orders, setOrders] = React.useState([]);
+
+  const fetchOrders = async () => {
+    try {
+      const response = await axios.get('https://ecommerce-backend-2-79ub.onrender.com/api/orders/getallorders', {
+        withCredentials: true, // Ensure cookies are sent with the request)
+      });
+      console.log("Fetched Orders:", response.data);
+      setOrders(response.data);
+    } catch (error) {
+      console.error("Error fetching orders:", error);
     }
-  ];
+  }
+
+  useEffect(() => {
+    fetchOrders();
+  }, []);
 
   return (
     <div className="p-6">
@@ -42,7 +61,7 @@ const OrdersPage = () => {
             </tr>
           </thead>
           <tbody>
-            {orders.map((order) => (
+            {orders?.map((order) => (
               <tr key={order.id} className="hover:bg-gray-50">
                 <td className="p-2 border">{order.id}</td>
                 <td className="p-2 border">{order.customer}</td>
