@@ -43,24 +43,24 @@ function App() {
   return (
     <Router>
       <Routes>
+        {/* Primary login page at the root */}
         <Route path="/" element={<LoginPage />} />
 
+        {/* Nested routes for the admin dashboard */}
         <Route path="/dashboard" element={<AdminLayout />}>
           <Route index element={<DashboardPages />} />
           <Route path="products" element={<ProductsPage products={products} />} />
           <Route path="add-product" element={<AddProductPage />} />
           <Route path="edit-product/:id" element={<ProductEditPage />} />
-          <Route path='orders' element={<OrdersPage />} />
-          <Route path='Users' element={<UsersPage />} />
-          <Route path='Profile' element={<ProfilePage />} />
-          <Route path='categories' element={<CategoriesPage />} />
-          <Route path='settings' element={<SettingsPage />} />
-        
+          <Route path="orders" element={<OrdersPage />} />
+          <Route path="users" element={<UsersPage />} />
+          <Route path="profile" element={<ProfilePage />} />
+          <Route path="categories" element={<CategoriesPage />} />
+          <Route path="settings" element={<SettingsPage />} />
         </Route>
-        <Route path="*" element={<div>404 Not Found</div>} />
-        <Route path="/login" element={<LoginPage />} />
 
-        {/* Add more routes like orders, users later */}
+        {/* Catch-all for 404 Not Found pages */}
+        <Route path="*" element={<div>404 Not Found</div>} />
       </Routes>
     </Router>
   );
