@@ -18,7 +18,7 @@ const DashboardPages = () => {
     setUserCount(response.data.count);
   }
   const fetchOrderCount = async () => {
-    const response = await axios.get('https://ecommerce-backend-2-79ub.onrender.com/api/orders/ordercount', {
+    const response = await axios.get('https://ecommerce-backend-2-79ub.onrender.com/api/order/ordercount', {
       withCredentials: true, // Ensure cookies are sent with the request
     });
     console.log("Order Count:", response.data);
@@ -32,7 +32,7 @@ const DashboardPages = () => {
     setProductCount(response.data.count);
   }
   const fetchRevenue = async () => {
-    const response = await axios.get('https://ecommerce-backend-2-79ub.onrender.com/api/orders/totalrevenue', {
+    const response = await axios.get('https://ecommerce-backend-2-79ub.onrender.com/api/order/totalrevenue', {
       withCredentials: true, // Ensure cookies are sent with the request
     });
     console.log("Total Revenue:", response.data);
